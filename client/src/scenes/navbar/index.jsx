@@ -45,6 +45,7 @@ const Navbar = () => {
 
 const logOut = () => {
   window.localStorage.removeItem("token");
+  console.log("oy");
   window.location.reload();
   dispatch(setLogout());
 }
@@ -77,9 +78,9 @@ const logOut = () => {
           <PeopleAltIcon sx={{ fontSize: "25px" }} onClick={() => navigate("/people")} cursor="pointer"
             style={window.location.pathname === "/people" ? { color: "#324ea8" } : { color: "#000000" }}
           />
-          <Message sx={{ fontSize: "25px" }} onClick={() => navigate("/messages")}  cursor="pointer"
-          style={window.location.pathname === "/messages" ? { color: "#324ea8" } : { color: "#000000" }}
-          />
+            {/* <Message sx={{ fontSize: "25px" }} onClick={() => navigate("/messages")}  cursor="pointer"
+            style={window.location.pathname === "/messages" ? { color: "#324ea8" } : { color: "#000000" }}
+            /> */}
          
           <IconButton onClick={() => dispatch(setMode())}>
             {theme.palette.mode === "dark" ? (
@@ -163,9 +164,9 @@ const logOut = () => {
             <PeopleAltIcon sx={{ fontSize: "25px" }} onClick={() => navigate("/people")} cursor="pointer"
             style={window.location.pathname === "/people" ? { color: "#324ea8" } : { color: "#000000" }}
           />
-          <Message sx={{ fontSize: "25px" }} onClick={() => navigate("/messages")}  cursor="pointer"
+          {/* <Message sx={{ fontSize: "25px" }} onClick={() => navigate("/messages")}  cursor="pointer"
           style={window.location.pathname === "/messages" ? { color: "#324ea8" } : { color: "#000000" }}
-          />
+          /> */}
          
          
             <FormControl variant="standard" value={fullName}>
@@ -189,7 +190,7 @@ const logOut = () => {
                 <MenuItem value={fullName}>
                   <Typography>{fullName}</Typography>
                 </MenuItem>
-                <MenuItem onClick={() =>logOut}>
+                <MenuItem onClick={() => dispatch(setLogout())}>
                   Log Out
                 </MenuItem>
               </Select>

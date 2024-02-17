@@ -10,14 +10,18 @@ const LoginPage = () => {
     <Box>
       <Box
         width="100%"
-        backgroundColor={theme.palette.background.alt}
+        backgroundColor="#caf0f8"
         p="1rem 6%"
         textAlign="center"
       >
-        <FlexCenter>
+        <FlexCenter sx={
+          {
+            padding:".5rem"
+          }
+        }>
 
-        <Typography fontWeight="bold"  sx={{ fontSize: "2rem", color: "#324ea8" }}>
-          LinkedIn    
+        <Typography fontWeight="bold"  sx={{ fontSize: "2.1rem",color: "#324ea8" }}>
+          Connect .    
         </Typography>
                <LinkedIn sx={{ fontSize: "2.5rem", color: "#324ea8" }}  />
         </FlexCenter>
@@ -27,9 +31,8 @@ const LoginPage = () => {
       <Box
         width={isNonMobileScreens ? "50%" : "93%"}
         p="2rem"
-        m="2rem auto"
+        m="4rem auto"
         borderRadius="1.5rem"
-        backgroundColor={theme.palette.background.alt}
       >
        
         <Form />

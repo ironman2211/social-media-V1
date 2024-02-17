@@ -241,8 +241,9 @@ const Form = () => {
               sx={{
                 m: "2rem 0",
                 p: "1rem",
-                backgroundColor: "#324ea8",
+                backgroundColor: "#5fa8d3",
                 color: palette.background.alt,
+                
               }}
             >
               {isLogin ? "LOGIN" : "REGISTER"}

@@ -9,11 +9,11 @@ import { useSelector } from "react-redux";
 import { CssBaseline, ThemeProvider } from "@mui/material";
 import { createTheme } from "@mui/material/styles";
 import { themeSettings } from "./theme";
-
 function App() {
   const mode = useSelector((state) => state.mode);
   const theme = useMemo(() => createTheme(themeSettings(mode)), [mode]);
   const isAuth = Boolean(useSelector((state) => state.token));
+  console.log(isAuth);
 
   return (
     <div className="app">
@@ -24,11 +24,11 @@ function App() {
             <Route path="/" element={<LoginPage />} />
             <Route
               path="/home"
-              element={true ? <HomePage /> : <Navigate to="/" />}
+              element={isAuth ? <HomePage /> : <Navigate to="/" />}
             />
             <Route
               path="/people"
-              element={true ? <FriendPage /> : <Navigate to="/" />}
+              element={isAuth ? <FriendPage /> : <Navigate to="/" />}
             />
             <Route
               path="/messages"
