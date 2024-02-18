@@ -43,6 +43,8 @@ const storage = multer.diskStorage({
   },
 });
 const upload = multer({ storage });
+app.use(express.static(path.join(__dirname, 'build')));
+
 
 /* ROUTES WITH FILES */
 app.post("/auth/register", upload.single("picture"), register);
