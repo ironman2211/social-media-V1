@@ -43,6 +43,7 @@ const storage = multer.diskStorage({
   },
 });
 const upload = multer({ storage });
+
 app.use(express.static(path.join(__dirname, 'build')));
 
 

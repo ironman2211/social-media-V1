@@ -28,7 +28,7 @@ const PeopleWidget = ({user}) => {
   const { _id } = useSelector((state) => state.user);
   const patchFriend = async () => {
     const response = await fetch(
-      `http://localhost:3001/users/${_id}/${user._id}`,
+      `http://ec2-35-78-168-82.ap-northeast-1.compute.amazonaws.com:3001/users/${_id}/${user._id}`,
       {
         method: "PATCH",
         headers: {

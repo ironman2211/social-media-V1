@@ -22,7 +22,7 @@ const Friend = ({ friendId, name, subtitle, userPicturePath, occupation }) => {
   const isFriend = friends.find((friend) => friend._id === friendId);
   const patchFriend = async () => {
     const response = await fetch(
-      `http://localhost:3001/users/${_id}/${friendId}`,
+      `http://ec2-35-78-168-82.ap-northeast-1.compute.amazonaws.com:3001/users/${_id}/${friendId}`,
       {
         method: "PATCH",
         headers: {

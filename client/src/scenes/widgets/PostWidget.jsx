@@ -36,7 +36,7 @@ const PostWidget = ({
   const primary = palette.primary.main;
 
   const patchLike = async () => {
-    const response = await fetch(`http://localhost:3001/posts/${postId}/like`, {
+    const response = await fetch(`http://ec2-35-78-168-82.ap-northeast-1.compute.amazonaws.com:3001/posts/${postId}/like`, {
       method: "PATCH",
       headers: {
         Authorization: `Bearer ${token}`,
@@ -48,7 +48,7 @@ const PostWidget = ({
     dispatch(setPost({ post: updatedPost }));
   };
   const handleDelete = async () => {
-    const response = await fetch(`http://localhost:3001/posts/${postId}`, {
+    const response = await fetch(`http://ec2-35-78-168-82.ap-northeast-1.compute.amazonaws.com:3001/posts/${postId}`, {
       method: "DELETE",
       headers: {
         Authorization: `Bearer ${token}`,
@@ -80,7 +80,7 @@ const PostWidget = ({
           height="auto"
           alt="post"
           style={{ borderRadius: "0.75rem", marginTop: "0.75rem" }}
-          src={`http://localhost:3001/assets/${picturePath}`}
+          src={`http://ec2-35-78-168-82.ap-northeast-1.compute.amazonaws.com:3001/assets/${picturePath}`}
         />
       )}
       <FlexBetween mt="0.25rem">

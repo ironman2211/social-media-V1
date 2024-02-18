@@ -12,7 +12,7 @@ const People = ({ userId, isProfile = false }) => {
   const { _id } = useSelector((state) => state.user);
 
   const getPosts = async () => {
-    const response = await fetch("http://localhost:3001/posts", {
+    const response = await fetch("http://ec2-35-78-168-82.ap-northeast-1.compute.amazonaws.com:3001/posts", {
       method: "GET",
       headers: { Authorization: `Bearer ${token}` },
     });
@@ -22,7 +22,7 @@ const People = ({ userId, isProfile = false }) => {
   };
 
   const getUsers = async () => {
-    const response = await fetch("http://localhost:3001/users", {
+    const response = await fetch("http://ec2-35-78-168-82.ap-northeast-1.compute.amazonaws.com:3001/users", {
       method: "GET",
       headers: { Authorization: `Bearer ${token}` },
     });
@@ -43,7 +43,7 @@ const People = ({ userId, isProfile = false }) => {
 
   const getUserPosts = async () => {
     const response = await fetch(
-      `http://localhost:3001/posts/${userId}/posts`,
+      `http://ec2-35-78-168-82.ap-northeast-1.compute.amazonaws.com:3001/posts/${userId}/posts`,
       {
         method: "GET",
         headers: { Authorization: `Bearer ${token}` },
