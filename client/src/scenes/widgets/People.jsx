@@ -4,6 +4,7 @@ import { setPosts } from "state";
 import FlexWrap from "components/FlexWrap";
 import PeopleWidget from "./PeopleWidget";
 import { Box, CircularProgress } from "@mui/material";
+import { apiService } from "apiHandled/common-services";
 
 const People = ({ userId, isProfile = false }) => {
   const dispatch = useDispatch();
@@ -12,20 +13,14 @@ const People = ({ userId, isProfile = false }) => {
   const { _id } = useSelector((state) => state.user);
 
   const getPosts = async () => {
-    const response = await fetch("http://localhost:3001/posts", {
-      method: "GET",
-      headers: { Authorization: `Bearer ${token}` },
-    });
+    const response = await apiService.getPosts(token);
     const data = await response.json();
     dispatch(setPosts({ posts: data }));
 
   };
 
   const getUsers = async () => {
-    const response = await fetch("http://localhost:3001/users", {
-      method: "GET",
-      headers: { Authorization: `Bearer ${token}` },
-    });
+    const response = await apiService.getAllUsers(token);
     const data = await response.json();
   const filteredUsers = data.filter((user) => user._id !== _id);
     setUsers(filteredUsers);
@@ -35,20 +30,15 @@ const People = ({ userId, isProfile = false }) => {
   useEffect(() => {
    
       getUsers();
-
+      getUserPosts();
+      getPosts();
   }
   , []); // eslint-disable-line react-hooks/exhaustive-deps
 
   
 
   const getUserPosts = async () => {
-    const response = await fetch(
-      `http://localhost:3001/posts/${userId}/posts`,
-      {
-        method: "GET",
-        headers: { Authorization: `Bearer ${token}` },
-      }
-    );
+    const response = await apiService.getUserPosts(userId, token);
     const data = await response.json();
 
     dispatch(setPosts({ posts: data }));
@@ -71,7 +61,7 @@ if(!users) return (
     <FlexWrap>
       {users?.map(
         (user) => (
-         <PeopleWidget user={user} />
+         <PeopleWidget key={user._id} user={user} />
         )
       )}
     </FlexWrap>

@@ -1,42 +1,25 @@
-import {
-  ManageAccountsOutlined,
-  EditOutlined,
-  LocationOnOutlined,
-  WorkOutlineOutlined,
-} from "@mui/icons-material";
+
 import CheckIcon from '@mui/icons-material/Check';
-import { PersonAddOutlined, PersonRemoveOutlined } from "@mui/icons-material";
-import { Box, Typography, Button,IconButton, useTheme } from "@mui/material";
+import { PersonAddOutlined } from "@mui/icons-material";
+import { Typography, Button, useTheme } from "@mui/material";
 import UserImage from "components/UserImage";
-import FlexBetween from "components/FlexBetween";
 import FlexCenter from "components/FlexCenter";
 import WidgetWrapper from "components/WidgetWrapper";
 import { useSelector,useDispatch } from "react-redux";
-import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { setFriends } from "state";
+import { apiService } from "apiHandled/common-services";
 
 const PeopleWidget = ({user}) => {
-  const {  firstName, lastName, occupation, location, picturePath  }=user;
+  const {  firstName, lastName, picturePath  }=user;
   const dispatch = useDispatch();
   const { palette } = useTheme();
   const navigate = useNavigate();
   const token = useSelector((state) => state.token);
   const dark = palette.neutral.dark;
-  const medium = palette.neutral.medium;
-  const main = palette.neutral.main;
   const { _id } = useSelector((state) => state.user);
   const patchFriend = async () => {
-    const response = await fetch(
-      `http://localhost:3001/users/${_id}/${user._id}`,
-      {
-        method: "PATCH",
-        headers: {
-          Authorization: `Bearer ${token}`,
-          "Content-Type": "application/json",
-        },
-      }
-    );
+    const response = await apiService.updateFriend(_id,user.id,token);
     const data = await response.json();
     dispatch(setFriends({ friends: data }));
   };

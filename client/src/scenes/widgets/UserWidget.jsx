@@ -12,6 +12,7 @@ import WidgetWrapper from "components/WidgetWrapper";
 import { useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { apiService } from "apiHandled/common-services";
 
 const UserWidget = ({ userId, picturePath }) => {
   const [user, setUser] = useState(null);
@@ -24,17 +25,14 @@ const UserWidget = ({ userId, picturePath }) => {
   const main = palette.neutral.main;
   const { _id } = useSelector((state) => state.user);
   const getUser = async () => {
-    const response = await fetch(`http://localhost:3001/users/${userId}`, {
-      method: "GET",
-      headers: { Authorization: `Bearer ${token}` },
-    });
+    const response = await apiService.getUser(_id,token)
     const data = await response.json();
     setUser(data);
   };
 
   useEffect(() => {
     getUser();
-    if(userId == _id) setEditable(true);
+    if(userId === _id) setEditable(true);
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   if (!user) {

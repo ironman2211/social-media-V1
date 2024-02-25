@@ -1,0 +1,27 @@
+version: '3.8'
+
+services:
+  mongodb:
+    image: mongo:latest
+    container_name: mongodb
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongodb_data:/data/db
+
+  nodejs:
+    # build:
+    #   context: .
+    #   dockerfile: Dockerfile
+    image: brahma2211/social-media:1.0.0
+    container_name: nodejs
+    ports:
+      - "3001:3001"
+    depends_on:
+      - mongodb
+    environment:
+      - MONGODB_URL=mongodb://mongodb:27017/mydatabase
+
+volumes:
+  mongodb_data:
+    driver: local

@@ -15,6 +15,7 @@ import { useDispatch } from "react-redux";
 import { setLogin } from "state";
 import Dropzone from "react-dropzone";
 import FlexBetween from "components/FlexBetween";
+import { apiService } from "apiHandled/common-services";
 
 const registerSchema = yup.object().shape({
   firstName: yup.string().required("required"),
@@ -63,13 +64,7 @@ const Form = () => {
     }
     formData.append("picturePath", values.picture.name);
 
-    const savedUserResponse = await fetch(
-      "http://localhost:3001/auth/register",
-      {
-        method: "POST",
-        body: formData,
-      }
-    );
+    const savedUserResponse =await apiService.register(formData);
     const savedUser = await savedUserResponse.json();
     onSubmitProps.resetForm();
 
@@ -79,11 +74,7 @@ const Form = () => {
   };
 
   const login = async (values, onSubmitProps) => {
-    const loggedInResponse = await fetch("http://localhost:3001/auth/login", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(values),
-    });
+    const loggedInResponse = await apiService.login(values);
     const loggedIn = await loggedInResponse.json();
   
     onSubmitProps.resetForm();

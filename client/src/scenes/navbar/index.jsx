@@ -12,11 +12,8 @@ import {
 } from "@mui/material";
 import {
   Search,
-  Message,
   DarkMode,
   LightMode,
-  Notifications,
-  Help,
   Menu,
   Close,
   LinkedIn,
@@ -38,14 +35,12 @@ const Navbar = () => {
   const neutralLight = theme.palette.neutral.light;
   const dark = theme.palette.neutral.dark;
   const background = theme.palette.background.default;
-  const primaryLight = theme.palette.secondary.light;
   const alt = theme.palette.background.alt;
 
   const fullName = `${user.firstName} ${user.lastName}`;
 
 const logOut = () => {
   window.localStorage.removeItem("token");
-  window.location.reload();
   dispatch(setLogout());
 }
   return (
@@ -75,12 +70,13 @@ const logOut = () => {
 
           {/* change color if in people */}
           <PeopleAltIcon sx={{ fontSize: "25px" }} onClick={() => navigate("/people")} cursor="pointer"
-            style={window.location.pathname === "/people" ? { color: "#324ea8" } : { color: "#000000" }}
+            style={window.location.pathname === "/people" ? { color: "#324ea8" } :{ color: theme.palette.mode }
+          }
           />
-          <Message sx={{ fontSize: "25px" }} onClick={() => navigate("/messages")}  cursor="pointer"
+          {/* <Message sx={{ fontSize: "25px" }} onClick={() => navigate("/messages")}  cursor="pointer"
           style={window.location.pathname === "/messages" ? { color: "#324ea8" } : { color: "#000000" }}
           />
-         
+          */}
           <IconButton onClick={() => dispatch(setMode())}>
             {theme.palette.mode === "dark" ? (
               <DarkMode sx={{ fontSize: "25px" }} />
@@ -109,7 +105,7 @@ const logOut = () => {
               <MenuItem value={fullName}>
                 <Typography>{fullName}</Typography>
               </MenuItem>
-              <MenuItem onClick={() => dispatch(setLogout())}>Log Out</MenuItem>
+              <MenuItem onClick={() => logOut()}>Log Out</MenuItem>
             </Select>
           </FormControl>
         </FlexBetween>
@@ -163,9 +159,9 @@ const logOut = () => {
             <PeopleAltIcon sx={{ fontSize: "25px" }} onClick={() => navigate("/people")} cursor="pointer"
             style={window.location.pathname === "/people" ? { color: "#324ea8" } : { color: "#000000" }}
           />
-          <Message sx={{ fontSize: "25px" }} onClick={() => navigate("/messages")}  cursor="pointer"
+          {/* <Message sx={{ fontSize: "25px" }} onClick={() => navigate("/messages")}  cursor="pointer"
           style={window.location.pathname === "/messages" ? { color: "#324ea8" } : { color: "#000000" }}
-          />
+          /> */}
          
          
             <FormControl variant="standard" value={fullName}>
@@ -189,9 +185,8 @@ const logOut = () => {
                 <MenuItem value={fullName}>
                   <Typography>{fullName}</Typography>
                 </MenuItem>
-                <MenuItem onClick={() =>logOut}>
-                  Log Out
-                </MenuItem>
+               
+              <MenuItem onClick={() => logOut()}>Log Out</MenuItem>
               </Select>
             </FormControl>
           </FlexBetween>

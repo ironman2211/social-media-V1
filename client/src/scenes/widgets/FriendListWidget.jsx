@@ -1,5 +1,6 @@
 import PeopleIcon from '@mui/icons-material/People';
 import { Box, Divider, Typography, useTheme } from "@mui/material";
+import { apiService } from 'apiHandled/common-services';
 import FlexBetween from "components/FlexBetween";
 import Friend from "components/Friend";
 import WidgetWrapper from "components/WidgetWrapper";
@@ -14,13 +15,7 @@ const FriendListWidget = ({ userId }) => {
   const friends = useSelector((state) => state.user.friends);
 
   const getFriends = async () => {
-    const response = await fetch(
-      `http://localhost:3001/users/${userId}/friends`,
-      {
-        method: "GET",
-        headers: { Authorization: `Bearer ${token}` },
-      }
-    );
+    const response = await apiService.getUserFriends(userId,token);
     const data = await response.json();
     dispatch(setFriends({ friends: data }));
   };
@@ -44,9 +39,9 @@ const FriendListWidget = ({ userId }) => {
       </FlexBetween>
       <Divider  />
       <Box display="flex" flexDirection="column" gap="1.5rem" padding="1rem 0">
-        {friends.map((friend) => (
+        {friends.map((friend,index) => (
           <Friend
-            key={friend._id}
+            key={index}
             friendId={friend._id}
             name={`${friend.firstName} ${friend.lastName}`}
             subtitle={friend.occupation}

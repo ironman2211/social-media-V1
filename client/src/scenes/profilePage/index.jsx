@@ -1,4 +1,5 @@
 import { Box, useMediaQuery } from "@mui/material";
+import { apiService } from "apiHandled/common-services";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
@@ -16,20 +17,13 @@ const ProfilePage = () => {
   const isNonMobileScreens = useMediaQuery("(min-width:1000px)");
 
   const getUser = async () => {
-    const response = await fetch(`http://localhost:3001/users/${userId}`, {
-      method: "GET",
-      headers: { Authorization: `Bearer ${token}` },
-    });
+    const response = await apiService.getUser(userId,token)
     const data = await response.json();
     setUser(data);
   };
 
-
-  useEffect(() => {
-    
-    getUser();
   
-  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+  useEffect(() => { getUser(); }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   if (!user) return null;
 

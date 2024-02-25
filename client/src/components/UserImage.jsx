@@ -1,4 +1,5 @@
 import { Box } from "@mui/material";
+import { apiService } from "apiHandled/common-services";
 
 const UserImage = ({ image, size = "60px" }) => {
   return (
@@ -7,8 +8,8 @@ const UserImage = ({ image, size = "60px" }) => {
         style={{ objectFit: "cover", borderRadius: "50%" }}
         width={size}
         height={size}
-        alt="user"
-        src={`http://localhost:3001/assets/${image}`}
+        alt="image_unavailable"
+        src={apiService.getImages(image)}
       />
     </Box>
   );
