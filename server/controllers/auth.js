@@ -38,7 +38,6 @@ export const register = async (req, res) => {
     const token = jwt.sign({ id: savedUser._id }, process.env.JWT_SECRET);
     delete savedUser.password;
     res.status(201).json({ savedUser, token });
-   
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
@@ -55,10 +54,42 @@ export const login = async (req, res) => {
     const isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch) return res.status(400).json({ msg: "Invalid credentials. " });
     const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET);
-    console.log(token)
-    delete user.password;
+    console.log(token);
+    delete user._doc.password;
     res.status(200).json({ user, token });
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
 };
+export const googleLogin = async (req, res) => {
+  let token = req.body.token;
+  const response = await axios.get(
+    `https://oauth2.googleapis.com/tokeninfo?id_token=${token}`
+  );
+  const userData = response.data;
+  const user = await User.findOne({ email: userData.email });
+  if (!user) {
+    const newUser = new User({
+      firstName: userData.given_name,
+      lastName: userData.family_name,
+      email: userData.email,
+      password: userData.sub,
+      picturePath: userData.picture,
+      friends: [],
+      location: "",
+      occupation: "",
+      viewedProfile: Math.floor(Math.random() * 10000),
+      impressions: Math.floor(Math.random() * 10000),
+    });
+    const user = await newUser.save();
+    delete user._doc.password;
+    const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET);
+    res.status(200).json({ user, token });
+  } else {
+    const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET);
+    delete user._doc.password;
+    res.status(200).json({ user, token });
+  }
+};
+
+const registerUser = () => {};
