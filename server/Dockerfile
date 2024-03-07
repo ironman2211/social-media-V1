@@ -8,7 +8,7 @@ COPY package*.json ./
 RUN npm cache clean --force
 
 
-RUN npm inst`all
+RUN npm install
 
 # Rebuild bcrypt inside the Docker container
 RUN npm rebuild bcrypt --build-from-source
