@@ -10,10 +10,7 @@ services:
       - mongodb_data:/data/db
 
   nodejs:
-    build:
-      context: .
-      dockerfile: Dockerfile
-    # image: brahma2211/social-media:1.0.0
+    image: social-media:1.0.1
     container_name: nodejs
     ports:
       - "3001:3001"

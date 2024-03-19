@@ -85,11 +85,42 @@ export const deletePost = async (req, res) => {
         post.userId,
         { $pull: { posts: post._id } },
         { new: true }
-      ).exec().then((user) => {
-        res.status(200).json(user);
-      });
-    })
+      )
+        .exec()
+        .then((user) => {
+          res.status(200).json(user);
+        });
+    });
   } catch (err) {
     res.status(404).json({ message: err.message });
   }
-}
+};
+
+export const commentPost = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { comment, imageUrl, name } = req.body;
+    const newComment = {
+      id,
+      comment,
+      imageUrl,
+      name,
+      createdAt: new Date(),
+    };
+    Post.findByIdAndUpdate(
+      id,
+      { $push: { comments: newComment } },
+      { new: true }
+    )
+      .then((updatedPost) => {
+        console.log("Post with added comment:", updatedPost);
+        res.status(200).json(updatedPost);
+      })
+      .catch((error) => {
+        console.error("Error adding comment:", error);
+        res.status(500).json({ message: "Server Error please wait :)" });
+      });
+  } catch (err) {
+    res.status(404).json({ message: err.message });
+  }
+};
