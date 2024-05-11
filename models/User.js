@@ -8,6 +8,10 @@ const UserSchema = new mongoose.Schema(
       min: 2,
       max: 50,
     },
+    status: {
+      type: String,
+      require: false,
+    },
     lastName: {
       type: String,
       required: true,
@@ -33,13 +37,17 @@ const UserSchema = new mongoose.Schema(
       type: Array,
       default: [],
     },
-    posts:{
-      type:Array,
-      default:[]
+    posts: {
+      type: Array,
+      default: [],
     },
-    secrete:{
-      type:String,
-      default:""
+    chats: {
+      type: Map,
+      default: {},
+    },
+    secrete: {
+      type: String,
+      default: "",
     },
     location: String,
     occupation: String,

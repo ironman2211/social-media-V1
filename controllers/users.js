@@ -76,3 +76,14 @@ export const addRemoveFriend = async (req, res) => {
     res.status(404).json({ message: err.message });
   }
 };
+
+export const getAllPrivateChats = async (req, res) => {
+  try {
+    const { userId } = req.body;
+    const user = await User.findById(userId);
+    console.log(user);
+    res.status(200).json(user.chats);
+  } catch (err) {
+    res.status(404).json({ message: err.message });
+  }
+};
