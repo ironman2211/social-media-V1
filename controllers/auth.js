@@ -39,7 +39,6 @@ export const register = async (req, res) => {
     res.status(500).json({ error: err.message });
   }
 };
-
 /* LOGGING IN */
 export const login = async (req, res) => {
   try {
@@ -88,5 +87,3 @@ export const googleLogin = async (req, res) => {
     res.status(200).json({ user, token });
   }
 };
-
-const registerUser = () => {};
